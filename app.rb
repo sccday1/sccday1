@@ -6,21 +6,33 @@ require './environments'
 
 
 # Create a model for your database. What properties should the object have?
-class _____________
+class Post
 	include DataMapper::Resource
 	property :id, Serial
-	property :_________, __Type__, :required => true
-  property :_________, __Type__
-  property :_________, __Type__
+  property :name, String, :required => true
+  property :email, String
+  property :comment, Text
 end
 DataMapper.finalize.auto_upgrade!
 
 
 
 # Create a 'get' route for the root page
+get '/' do
+  @posts = Post.all
+  erb :'/index'
+end
 
-
-
+post '/posts' do
+  post = Post.new(params[:post])
+  if post.save 
+    redirect '/'
+  else
+    @error = "Your post could not be saved."
+    @posts = Post.all
+    erb :'/index'
+  end
+end
 
 
 

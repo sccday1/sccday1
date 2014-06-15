@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>My Contacts</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <% if @error %>
+			<p class="error"><%= @error %></p>
+		<% end %>
+  
+		<form action="/posts" method="post" accept-charset="utf-8">
+      <label>Name (required):</label> <input type="text" name="post[name]" /> 
+      <label>Email (required):</label><input type="text" name="post[email]">
+      <label>Comment (optional):</label>
+			<textarea name="post[comment]" id="" cols="75" rows="8"></textarea>
+		  <input type="submit" value="Submit" />
+	  </form>
+  
+	  <% @posts.each do |p| %>
+      <div class="post">
+        <h4><%= p.name %> (<%= p.email %>) says:</h4>
+        <p><%= p.comment %></p>
+      </div>
+	  <% end %>
+	</div>
+</body>
+</html>
